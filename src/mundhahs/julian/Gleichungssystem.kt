@@ -12,7 +12,6 @@ class Gleichungssystem {
     }
 
     fun sort() {
-        //TODO: Move to other function
         //Unter der Annamhe, dass alle gleich lang sind
         checkApparentDeterminationOfEqautionSystem()
 
