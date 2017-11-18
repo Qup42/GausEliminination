@@ -4,7 +4,7 @@ package mundhahs.julian
  * Created by Julian Mundhahs on 18.11.2017.
  */
 class GausElminiationSolver: LinearEquationSolver {
-    override fun solve(system: Gleichungssystem): Gleichungssystem {
+    override fun solve(system: LinearEquationSystem): LinearEquationSystem {
         //Unter der Annamhe, dass alle gleich lang sind
         checkApparentDeterminationOfEqautionSystem(system.gleichungen)
 

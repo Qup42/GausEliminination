@@ -12,12 +12,12 @@ object Main {
         */
 
 
-        //val lgs = Gleichungssystem(a,b,c, d, e)
+        //val lgs = LinearEquationSystem(a,b,c, d, e)
 
         val a = Gleichung(3.br, arrayOf(1.br, 1.br))
         val b = Gleichung(1.br, arrayOf(1.br, 0.br))
 
-        val lgs = Gleichungssystem(a,b)
+        val lgs = LinearEquationSystem(a,b)
 
         lgs.solveSystem()
     }
