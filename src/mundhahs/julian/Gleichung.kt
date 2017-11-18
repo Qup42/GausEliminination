@@ -33,4 +33,9 @@ class Gleichung(val ergebnis: Bruch, val faktoren: Array<Bruch>) {
     {
         return Gleichung(ergebnis*faktor, Array<Bruch>(faktoren.size, {i -> (faktoren[i]*faktor)}))
     }
+
+    fun fillTo(size: Int): Gleichung
+    {
+        return Gleichung(ergebnis, Array<Bruch>(size, {i -> faktoren.getOrElse(i, {0.br})}))
+    }
 }
