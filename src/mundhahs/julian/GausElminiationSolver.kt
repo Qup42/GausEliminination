@@ -23,6 +23,11 @@ class GausElminiationSolver: LinearEquationSolver {
     }
 
     private fun preSortEquations(gleichungen: Array<Gleichung>) {
+        if(!oneNotZeroPrefactorPerRow(gleichungen))
+        {
+            throw Exception("Every variable must have at least one not null coefficient!")
+        }
+
         for (i in 0 until gleichungen.size) {
             //TODO: funktioniert noch nicht ganz
             if (gleichungen[i].faktoren[i].equals(0)) {
@@ -38,6 +43,25 @@ class GausElminiationSolver: LinearEquationSolver {
                 gleichungen[i + deltaI] = temp
             }
         }
+    }
+
+    private fun oneNotZeroPrefactorPerRow(gleichungen: Array<Gleichung>): Boolean {
+        for(i in 0..gleichungen[0].faktoren.size)
+        {
+            var containsNotNull = false
+            for(j in 0..gleichungen.size)
+            {
+                if(gleichungen[j].faktoren[i].zähler != 0)
+                {
+                    containsNotNull = true
+                }
+            }
+            if(!containsNotNull)
+            {
+                return false
+            }
+        }
+        return true
     }
 
     private fun addRowsTogether(gleichungen: Array<Gleichung>) {
