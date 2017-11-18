@@ -19,7 +19,11 @@ object Main {
 
         val lgs = LinearEquationSystem(a,b)
 
-        lgs.solveSystem()
+        val solver: LinearEquationSolver = GausElminiationSolver()
+
+        solver.solve(lgs)
+
+        print(lgs)
     }
 }
 
