@@ -11,11 +11,23 @@ class Gleichungssystem {
         this.gleichungen = gleichungen.toList().toTypedArray()
     }
 
-    fun sort() {
+    fun solveSystem() {
         //Unter der Annamhe, dass alle gleich lang sind
         checkApparentDeterminationOfEqautionSystem()
 
         //move the zeros away from the diagonal - sort of
+        preSortEquations()
+
+        //zero out the bottom left half
+        tranformToUpperTriangularMatrix()
+
+        //only leave one coefficent != 0 by subtracting the values from the bottom to the top only leaving the diagonal
+        addRowsTogether()
+
+        println("Fertig")
+    }
+
+    private fun preSortEquations() {
         for (i in 0 until gleichungen.size) {
             //TODO: funktioniert noch nicht ganz
             if (gleichungen[i].faktoren[i].equals(0)) {
@@ -31,8 +43,18 @@ class Gleichungssystem {
                 gleichungen[i + deltaI] = temp
             }
         }
+    }
 
-        //zero out the bottom left half
+    private fun addRowsTogether() {
+        for (i in gleichungen.size - 1 downTo 0) {
+            println(gleichungen[i])
+            for (j in i - 1 downTo 0) {
+                gleichungen[j] = gleichungen[j] - (gleichungen[i] / gleichungen[i].faktoren[i] * gleichungen[j].faktoren[i])
+            }
+        }
+    }
+
+    private fun tranformToUpperTriangularMatrix() {
         for (i in 0 until gleichungen.size) {
             for (j in gleichungen.size - 1 downTo i + 1) {
                 try {
@@ -42,16 +64,6 @@ class Gleichungssystem {
                 }
             }
         }
-
-        //only leave one coefficent != 0 by subtracting the values from the bottom to the top only leaving the diagonal
-        for (i in gleichungen.size - 1 downTo 0) {
-            println(gleichungen[i])
-            for (j in i - 1 downTo 0) {
-                gleichungen[j] = gleichungen[j] - (gleichungen[i] / gleichungen[i].faktoren[i] * gleichungen[j].faktoren[i])
-            }
-        }
-
-        println("Fertig")
     }
 
     private fun checkApparentDeterminationOfEqautionSystem() {

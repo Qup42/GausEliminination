@@ -19,7 +19,7 @@ object Main {
 
         val lgs = Gleichungssystem(a,b)
 
-        lgs.sort()
+        lgs.solveSystem()
     }
 }
 
