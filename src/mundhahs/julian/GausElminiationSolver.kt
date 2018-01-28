@@ -8,81 +8,38 @@ class GausElminiationSolver: LinearEquationSolver {
         //Unter der Annamhe, dass alle gleich lang sind
         checkApparentDeterminationOfEqautionSystem(system.gleichungen)
 
-        //move the zeros away from the diagonal - sort of
-        preSortEquations(system.gleichungen)
+        var zeile = 0;
 
-        //zero out the bottom left half
-        tranformToUpperTriangularMatrix(system.gleichungen)
+        for(spalte in 0  until system.getEquationsLength())
+        {
+            val notZeroRowIndex: Int? = findNotZeroRow(system.gleichungen, spalte, zeile)
 
-        //only leave one coefficent != 0 by subtracting the values from the bottom to the top only leaving the diagonal
-        addRowsTogether(system.gleichungen)
+            if(notZeroRowIndex == null)
+            {
+                continue
+            }
+            else
+            {
+                system.gleichungen[notZeroRowIndex] = system.gleichungen[notZeroRowIndex] / system.gleichungen[notZeroRowIndex].faktoren[spalte]
+                for(zeroOut in 0 until system.getEquationsAmount())
+                {
+                    if(zeroOut == notZeroRowIndex) continue
+                    system.gleichungen[zeroOut] = system.gleichungen[zeroOut] - system.gleichungen[notZeroRowIndex] * system.gleichungen[zeroOut].faktoren[spalte]
+                }
+                zeile++
+                //zero out below
+            }
+        }
 
         println("Fertig")
 
         return system
     }
 
-    private fun preSortEquations(gleichungen: Array<Gleichung>) {
-        if(!oneNotZeroPrefactorPerRow(gleichungen))
-        {
-            throw Exception("Every variable must have at least one not null coefficient!")
-        }
+    private fun findNotZeroRow(gleichungen: Array<Gleichung>, spalte: Int, zeile: Int): Int?
+    {
 
-        for (i in 0 until gleichungen.size) {
-            //TODO: funktioniert noch nicht ganz
-            if (gleichungen[i].faktoren[i].equals(0)) {
-                println("Faktor ist null")
-
-                var deltaI = 1
-                if (i == gleichungen.size - 1) {
-                    deltaI = -1
-                }
-
-                val temp: Gleichung = gleichungen[i]
-                gleichungen[i] = gleichungen[i + deltaI]
-                gleichungen[i + deltaI] = temp
-            }
-        }
-    }
-
-    private fun oneNotZeroPrefactorPerRow(gleichungen: Array<Gleichung>): Boolean {
-        for(i in 0..gleichungen[0].faktoren.size)
-        {
-            var containsNotNull = false
-            for(j in 0..gleichungen.size)
-            {
-                if(gleichungen[j].faktoren[i].zähler != 0)
-                {
-                    containsNotNull = true
-                }
-            }
-            if(!containsNotNull)
-            {
-                return false
-            }
-        }
-        return true
-    }
-
-    private fun addRowsTogether(gleichungen: Array<Gleichung>) {
-        for (i in gleichungen.size - 1 downTo 0) {
-            println(gleichungen[i])
-            for (j in i - 1 downTo 0) {
-                gleichungen[j] = gleichungen[j] - (gleichungen[i] / gleichungen[i].faktoren[i] * gleichungen[j].faktoren[i])
-            }
-        }
-    }
-
-    private fun tranformToUpperTriangularMatrix(gleichungen: Array<Gleichung>) {
-        for (i in 0 until gleichungen.size) {
-            for (j in gleichungen.size - 1 downTo i + 1) {
-                try {
-                    gleichungen[j] = gleichungen[j] - (gleichungen[i] / gleichungen[i].faktoren[i] * gleichungen[j].faktoren[i])
-                } catch (a: ArithmeticException) {
-                    throw Exception("Das Gleichungssystem ist unterbesetzt!")
-                }
-            }
-        }
+        return (zeile until gleichungen.size).firstOrNull { gleichungen[it].faktoren[spalte].zähler!=0 }
     }
 
     private fun checkApparentDeterminationOfEqautionSystem(gleichungen: Array<Gleichung>) {
