@@ -12,7 +12,11 @@ data class Bruch(val zähler: Int, val nenner: Int) {
     }
 
     operator fun plus(bruch: Bruch): Bruch {
-        return kürzen(zähler*bruch.nenner+bruch.zähler*nenner, nenner*bruch.nenner)
+        return when {
+            zähler==0 -> bruch
+            bruch.zähler==0 -> this
+            else -> kürzen(zähler*bruch.nenner+bruch.zähler*nenner, nenner*bruch.nenner)
+        }
     }
 
     override fun equals(other: Any?): Boolean {
