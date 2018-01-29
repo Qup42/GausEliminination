@@ -42,6 +42,11 @@ class GausElminiationSolver: LinearEquationSolver {
         return system
     }
 
+    private fun swap(gleichungen: Array<Gleichung>, index1: Int, index2: Int)
+    {
+        gleichungen[index1] = gleichungen[index2].also { gleichungen[index2] = gleichungen[index1] }
+    }
+
     private fun findNotZeroRow(gleichungen: Array<Gleichung>, spalte: Int, zeile: Int): Int?
     {
 
