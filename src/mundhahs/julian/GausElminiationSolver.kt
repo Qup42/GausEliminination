@@ -21,11 +21,14 @@ class GausElminiationSolver: LinearEquationSolver {
             }
             else
             {
-                system.gleichungen[notZeroRowIndex] = system.gleichungen[notZeroRowIndex] / system.gleichungen[notZeroRowIndex].faktoren[spalte]
+                //die gleichung mit dem faktor ungleich 0 wird mit einer anderen getauscht, so dass sie an der richtigen steht (=über der letzten sprungstelle)
+                if(notZeroRowIndex!=sprungStellen) swap(system.gleichungen, notZeroRowIndex, sprungStellen)
+
+                system.gleichungen[sprungStellen] = system.gleichungen[sprungStellen] / system.gleichungen[sprungStellen].faktoren[spalte]
                 for(zeroOut in 0 until system.getEquationsAmount())
                 {
-                    if(zeroOut == notZeroRowIndex) continue
-                    system.gleichungen[zeroOut] = system.gleichungen[zeroOut] - system.gleichungen[notZeroRowIndex] * system.gleichungen[zeroOut].faktoren[spalte]
+                    if(zeroOut == sprungStellen) continue
+                    system.gleichungen[zeroOut] = system.gleichungen[zeroOut] - system.gleichungen[sprungStellen] * system.gleichungen[zeroOut].faktoren[spalte]
                 }
                 sprungStellen++
                 //zero out below
