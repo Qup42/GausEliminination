@@ -8,11 +8,12 @@ class GausElminiationSolver: LinearEquationSolver {
         //Unter der Annamhe, dass alle gleich lang sind
         checkApparentDeterminationOfEqautionSystem(system.gleichungen)
 
-        var zeile = 0;
+        var sprungStellen = 0;
 
         for(spalte in 0  until system.getEquationsLength())
         {
-            val notZeroRowIndex: Int? = findNotZeroRow(system.gleichungen, spalte, zeile)
+            //eigentlich sollten die spalten in diesem fall lieber getauscht werden
+            val notZeroRowIndex: Int? = findNotZeroRow(system.gleichungen, spalte, sprungStellen)
 
             if(notZeroRowIndex == null)
             {
@@ -26,12 +27,17 @@ class GausElminiationSolver: LinearEquationSolver {
                     if(zeroOut == notZeroRowIndex) continue
                     system.gleichungen[zeroOut] = system.gleichungen[zeroOut] - system.gleichungen[notZeroRowIndex] * system.gleichungen[zeroOut].faktoren[spalte]
                 }
-                zeile++
+                sprungStellen++
                 //zero out below
             }
         }
 
+        val freieParameter: Int = system.getEquationsLength() - sprungStellen
+
+        //lösungsmenge!={leereMenge} prüfen
+
         println("Fertig")
+        println("Stats:\nFreie Parameter: $freieParameter\n")
 
         return system
     }
