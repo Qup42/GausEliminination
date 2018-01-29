@@ -25,11 +25,9 @@ class GausElminiationSolver: LinearEquationSolver {
                 if(notZeroRowIndex!=sprungStellen) swap(system.gleichungen, notZeroRowIndex, sprungStellen)
 
                 system.gleichungen[sprungStellen] = system.gleichungen[sprungStellen] / system.gleichungen[sprungStellen].faktoren[spalte]
-                for(zeroOut in 0 until system.getEquationsAmount())
-                {
-                    if(zeroOut == sprungStellen) continue
-                    system.gleichungen[zeroOut] = system.gleichungen[zeroOut] - system.gleichungen[sprungStellen] * system.gleichungen[zeroOut].faktoren[spalte]
-                }
+                (0 until system.getEquationsAmount())
+                        .filter { it != sprungStellen }
+                        .forEach { system.gleichungen[it] = system.gleichungen[it] - system.gleichungen[sprungStellen] * system.gleichungen[it].faktoren[spalte] }
                 sprungStellen++
                 //zero out below
             }
