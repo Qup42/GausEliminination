@@ -8,7 +8,8 @@ class GausElminiationSolver: LinearEquationSolver {
         //Unter der Annamhe, dass alle gleich lang sind
         checkApparentDeterminationOfEqautionSystem(system.gleichungen)
 
-        var sprungStellen = 0;
+        var sprungStellen = 0
+        var freieParameter = 0
 
         for(spalte in 0  until system.getEquationsLength())
         {
@@ -17,6 +18,7 @@ class GausElminiationSolver: LinearEquationSolver {
 
             if(notZeroRowIndex == null)
             {
+                freieParameter++
                 continue
             }
             else
@@ -33,12 +35,19 @@ class GausElminiationSolver: LinearEquationSolver {
             }
         }
 
-        val freieParameter: Int = system.getEquationsLength() - sprungStellen
-
         //lösungsmenge!={leereMenge} prüfen
+        var emptySolutionSet: Boolean = false
+        for(i in sprungStellen until system.getEquationsAmount())
+        {
+            if(system.gleichungen[i].ergebnis.zähler == 0)
+            {
+                println("Die Lösungsmenge ist leer!")
+                emptySolutionSet = true
+            }
+        }
 
         println("Fertig")
-        println("Stats:\nFreie Parameter: $freieParameter\n")
+        println("Stats:\nFreie Parameter: $freieParameter\nSprungstellen: $sprungStellen\nLösungsmenge ist leer: $emptySolutionSet\n")
 
         return system
     }
