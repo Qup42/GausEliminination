@@ -1,7 +1,5 @@
 package mundhahs.julian
 
-import java.util.*
-
 class Gleichung(val ergebnis: Bruch, val faktoren: Array<Bruch>) {
 
     override fun toString(): String {
