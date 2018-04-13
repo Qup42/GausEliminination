@@ -59,4 +59,8 @@ data class Bruch(val zähler: Int, val nenner: Int) {
         result = 31 * result + nenner
         return result
     }
+
+    override fun toString(): String {
+        return "($zähler/$nenner)"
+    }
 }
