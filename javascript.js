@@ -1,4 +1,5 @@
-$("#calculate").click(function (event) {
+$("#calculate").click(function () {
+    GausEliminination.mundhahs.julian.fillEmptyInputsWithZero();
     GausEliminination.mundhahs.julian.calculate();
 });
 
