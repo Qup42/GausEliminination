@@ -49,21 +49,19 @@ fun removeEquation() {
 
 fun addEquation() {
     println(numEquations)
-    document.getElementById("table")!!.append {
-        tbody {
-            tr {
-                id = "row$numEquations"
-                th(scope = ThScope.row) { +numEquations.toString() }
-                for (j in 1..numUnknowns) {
-                    td {
-                        id = "r$numEquations c$j"
-                        input(type = InputType.number) { }
-                    }
-                }
+    document.getElementById("tbody")!!.append {
+        tr {
+            id = "row$numEquations"
+            th(scope = ThScope.row) { +numEquations.toString() }
+            for (j in 1..numUnknowns) {
                 td {
-                    id = "r$numEquations c${numUnknowns + 1}"
+                    id = "r$numEquations c$j"
                     input(type = InputType.number) { }
                 }
+            }
+            td {
+                id = "r$numEquations c${numUnknowns + 1}"
+                input(type = InputType.number) { }
             }
         }
     }
@@ -73,7 +71,7 @@ fun removeUnknown() {
     for (i in 0..numEquations) {
         document.getElementById("r$i c${numUnknowns + 1}")!!.remove()
 
-        document.getElementById("r$i c${numUnknowns+2}").let {
+        document.getElementById("r$i c${numUnknowns + 2}").let {
             it!!.id = "r$i c${numUnknowns + 1}"
         }
     }
@@ -85,10 +83,10 @@ fun addUnknown() {
             it!!.id = "r$i c${numUnknowns + 1}"
         }
 
-        document.getElementById("r$i c${numUnknowns+1}").let {
+        document.getElementById("r$i c${numUnknowns + 1}").let {
             val newElement = document.createElement("td")
             newElement.id = "r$i c$numUnknowns"
-            val input =  document.create.input(type = InputType.number) { }
+            val input = document.create.input(type = InputType.number) { }
             newElement.append(input)
             it!!.parentNode!!.insertBefore(newElement, it)
         }
@@ -99,7 +97,7 @@ fun addUnknown() {
         it!!.id = "r0 c${numUnknowns + 1}"
     }
 
-    document.getElementById("r0 c${numUnknowns+1}").let {
+    document.getElementById("r0 c${numUnknowns + 1}").let {
         val newElement = document.createElement("th")
         newElement.setAttribute("scope", "col")
         newElement.id = "r0 c$numUnknowns"
@@ -127,6 +125,7 @@ fun setupTable() {
             }
         }
         tbody {
+            id = "tbody"
             for (i in 1..numEquations) {
                 tr {
                     id = "row$i"
@@ -150,14 +149,12 @@ fun setupTable() {
 fun calculate() {
     val equations: MutableList<Gleichung> = mutableListOf()
 
-    for(i in 1..numEquations)
-    {
-        val coefficents: Array<Bruch> = Array(numUnknowns-1, { _ -> 0.br})
-        for(j in 1..numUnknowns)
-        {
-            coefficents[j-1] = (document.getElementById("r$i c$j")?.firstChild as HTMLInputElement).value.toBruch
+    for (i in 1..numEquations) {
+        val coefficents: Array<Bruch> = Array(numUnknowns - 1, { _ -> 0.br })
+        for (j in 1..numUnknowns) {
+            coefficents[j - 1] = (document.getElementById("r$i c$j")?.firstChild as HTMLInputElement).value.toBruch
         }
-        val result: Bruch = (document.getElementById("r$i c${numUnknowns+1}")?.firstChild as HTMLInputElement).value.toBruch
+        val result: Bruch = (document.getElementById("r$i c${numUnknowns + 1}")?.firstChild as HTMLInputElement).value.toBruch
 
         equations.add(Gleichung(result, coefficents))
     }
@@ -172,22 +169,21 @@ fun calculate() {
 
     values.forEach { console.log(it.value.getResult()) }
     val resultDiv = document.getElementById("result")
-    values.forEach { resultDiv!!.append {
-        p {
-            + it.value.getResult()
+    values.forEach {
+        resultDiv!!.append {
+            p {
+                +it.value.getResult()
+            }
         }
-    } }
+    }
     resultDiv!!.append { hr { } }
 }
 
 fun fillEmptyInputsWithZero() {
-    for(i in 1..numEquations)
-    {
-        for(j in 1..numUnknowns+1)
-        {
+    for (i in 1..numEquations) {
+        for (j in 1..numUnknowns + 1) {
             (document.getElementById("r$i c$j")?.firstChild as HTMLInputElement).let {
-                if((it.value == undefined) or (it.value.isEmpty()) or (it.value.isBlank()))
-                {
+                if ((it.value == undefined) or (it.value.isEmpty()) or (it.value.isBlank())) {
                     it.value = "0"
                 }
             }
