@@ -7,80 +7,39 @@ import kotlin.browser.document
 import kotlin.browser.window
 
 fun main(args: Array<String>) {
-    Main.main(arrayOf())
-}
+    val a = Gleichung(2.br, arrayOf(1.br, 1.br, 5.br, 3.br, 3.br))
+    val b = Gleichung(3.br, arrayOf(2.br, 3.br, (-1).br, 7.br, 3.br))
+    val c = Gleichung(3.br, arrayOf(2.br, 3.br, 2.br, 12.br, 3.br))
+    val d = Gleichung(1.br, arrayOf(4.br, 2.br, 0.br, 69.br, 3.br))
+    val lgs = LinearEquationSystem(a, b, c, d)
 
-object Main {
+    val solver: LinearEquationSolver = GausElminiationSolver()
 
-    //@JvmStatic fun main(args: Array<String>) {
-    fun main(args: Array<String>) {
-        /*
-        val a = Gleichung(2.br, arrayOf(1.br, 1.br, 5.br, 3.br, 3.br))
-        val b = Gleichung(3.br, arrayOf(2.br,3.br, -1.br, 7.br, 3.br))
-        val c = Gleichung(3.br, arrayOf(2.br,3.br, 2.br, 12.br, 3.br))
-        val d = Gleichung(1.br, arrayOf(4.br,2.br, 0.br, 69.br, 3.br))
-        val e = Gleichung(1.br, arrayOf(4.br,2.br, 0.br, 1.br, 0.br))
-        */
+    val solved = solver.solve(lgs)
 
+    val values = (solver as GausElminiationSolver).harvest1(solved)
 
-        /*
-        1 freier parameter
-         */
-        val a = Gleichung(2.br, arrayOf(1.br, 1.br, 5.br, 3.br, 3.br))
-        val b = Gleichung(3.br, arrayOf(2.br, 3.br, (-1).br, 7.br, 3.br))
-        val c = Gleichung(3.br, arrayOf(2.br, 3.br, 2.br, 12.br, 3.br))
-        val d = Gleichung(1.br, arrayOf(4.br, 2.br, 0.br, 69.br, 3.br))
-        val lgs = LinearEquationSystem(a, b, c, d)
-
-        /*val a = Gleichung(2.br, arrayOf(1.br, 1.br, 5.br, 3.br))
-        val b = Gleichung(3.br, arrayOf(2.br,3.br, (-1).br, 7.br))
-        val c = Gleichung(3.br, arrayOf(2.br,3.br, 2.br, 12.br))
-        val d = Gleichung(1.br, arrayOf(4.br,2.br, 0.br, 69.br))
-        val lgs = LinearEquationSystem(a,b,c, d)*/
-
-        /*val a = Gleichung(1.br, arrayOf(1.br, 0.br, 0.br, 0.br))
-        val b = Gleichung(2.br, arrayOf(0.br, 0.br, 0.br, 1.br))
-        val c = Gleichung(3.br, arrayOf(0.br, 1.br, 0.br, 0.br))
-        val d = Gleichung(4.br, arrayOf(0.br, 0.br, 1.br, 0.br))
-        val lgs = LinearEquationSystem(a,b,c,d)*/
-
-
-        /*
-        val a = Gleichung(3.br, arrayOf(1.br, 1.br))
-        val b = Gleichung(1.br, arrayOf(1.br, 0.br))
-
-        val lgs = LinearEquationSystem(a,b)
-        */
-
-        val solver: LinearEquationSolver = GausElminiationSolver()
-
-        val solved = solver.solve(lgs)
-
-        val values = (solver as GausElminiationSolver).harvest1(solved)
-
-        //console.log(values)
-        console.log(values.keys.joinToString(", "))
-        window.onload = {
-            values.forEach { console.log(it.value.getResult()) }
-            val resultDiv = document.getElementById("result")
-            values.forEach {
-                resultDiv!!.append {
-                    p {
-                        +it.value.getResult()
-                    }
+    console.log(values.keys.joinToString(", "))
+    window.onload = {
+        values.forEach { console.log(it.value.getResult()) }
+        val resultDiv = document.getElementById("result")
+        values.forEach {
+            resultDiv!!.append {
+                p {
+                    +it.value.getResult()
                 }
             }
-            resultDiv!!.append { hr { } }
         }
+        resultDiv!!.append { hr { } }
     }
 }
 
-public val Int.br: Bruch
+val Int.br: Bruch
     get() {
         return Bruch(this, 1)
     }
 
-public val String.toBruch: Bruch
+val String.toBruch: Bruch
     get() {
         return Bruch(this.toInt(), 1)
     }
