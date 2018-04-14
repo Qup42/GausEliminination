@@ -13,9 +13,9 @@ class GausElminiationSolver : LinearEquationSolver {
 
         for (spalte in 0 until system.getEquationsLength()) {
             //eigentlich sollten die spalten in diesem fall lieber getauscht werden
-            val notZeroRowIndex: Int? = findNotZeroRow(system, spalte, sprungStellen)
+            val notZeroRowIndex: Int = findNotZeroRow(system, spalte, sprungStellen)
 
-            if (notZeroRowIndex == null) {
+            if (notZeroRowIndex == -1) {
                 freieParameter++
                 continue
             } else {
@@ -52,9 +52,8 @@ class GausElminiationSolver : LinearEquationSolver {
         gleichungen[index1] = gleichungen[index2].also { gleichungen[index2] = gleichungen[index1] }
     }
 
-    private fun findNotZeroRow(system: LinearEquationSystem, spalte: Int, zeile: Int): Int? {
-
-        return (zeile until system.getEquationsAmount()).firstOrNull { system[it, spalte].zähler != 0 }
+    private fun findNotZeroRow(system: LinearEquationSystem, spalte: Int, zeile: Int): Int {
+        return (zeile until system.getEquationsAmount()).indexOfFirst { system[it, spalte].zähler != 0 }
     }
 
     private fun checkApparentDeterminationOfEqautionSystem(gleichungen: Array<Gleichung>) {
