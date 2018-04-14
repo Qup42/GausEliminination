@@ -3,6 +3,7 @@ package mundhahs.julian
 import kotlinx.html.*
 import kotlinx.html.dom.append
 import kotlinx.html.dom.create
+import kotlinx.html.js.hr
 import org.w3c.dom.HTMLInputElement
 import kotlin.browser.document
 
@@ -140,6 +141,54 @@ fun setupTable() {
                         id = "r$i c${numUnknowns + 1}"
                         input(type = InputType.number) { }
                     }
+                }
+            }
+        }
+    }
+}
+
+fun calculate() {
+    val equations: MutableList<Gleichung> = mutableListOf()
+
+    for(i in 1..numEquations)
+    {
+        val coefficents: Array<Bruch> = Array(numUnknowns-1, { _ -> 0.br})
+        for(j in 1..numUnknowns)
+        {
+            coefficents[j-1] = (document.getElementById("r$i c$j")?.firstChild as HTMLInputElement).value.toBruch
+        }
+        val result: Bruch = (document.getElementById("r$i c${numUnknowns+1}")?.firstChild as HTMLInputElement).value.toBruch
+
+        equations.add(Gleichung(result, coefficents))
+    }
+
+    val lgs = LinearEquationSystem(equations)
+
+    val solver: LinearEquationSolver = GausElminiationSolver()
+
+    val solved = solver.solve(lgs)
+
+    val values = (solver as GausElminiationSolver).harvest1(solved)
+
+    values.forEach { console.log(it.value.getResult()) }
+    val resultDiv = document.getElementById("result")
+    values.forEach { resultDiv!!.append {
+        p {
+            + it.value.getResult()
+        }
+    } }
+    resultDiv!!.append { hr { } }
+}
+
+fun fillEmptyInputsWithZero() {
+    for(i in 1..numEquations)
+    {
+        for(j in 1..numUnknowns+1)
+        {
+            (document.getElementById("r$i c$j")?.firstChild as HTMLInputElement).let {
+                if((it.value == undefined) or (it.value.isEmpty()) or (it.value.isBlank()))
+                {
+                    it.value = "0"
                 }
             }
         }
