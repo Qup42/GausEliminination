@@ -63,6 +63,53 @@ class GausElminiationSolver : LinearEquationSolver {
         }
     }
 
+    fun harvest1(system: LinearEquationSystem): Map<Int, Ergebnis> {
+        val bestimmt: MutableList<Pair<Int, Int>> = mutableListOf()
+        /*similar to unbestimmt indexes*/
+        system.gleichungen.forEach { gleichung ->
+            run {
+                if (gleichung.faktoren.indexOfFirst { it == 1.br } != -1)
+                    bestimmt.add(Pair(gleichung.faktoren.indexOfFirst { it == 1.br }, system.gleichungen.indexOf(gleichung)))
+            }
+        }
+        val bestimmtIndex = bestimmt.map { it.first }
+        val unbestimmt: List<Int> = (0 until system.getEquationsLength()).toList().subtract(bestimmtIndex).toList()
+//        console.log(unbestimmt)
+//        console.log(bestimmt)
+
+        val results: MutableMap<Int, Wert> = mutableMapOf()
+
+        bestimmt.reversed().forEach { position ->
+            run {
+                val freieParameter: MutableList<Pair<FreierParameter, Bruch>> = mutableListOf()
+                //console.log("x${position.first+1} in row ${position.second} = ${system.gleichungen[position.second].faktoren[position.first]}")
+                //console.log("x${position.first + 1}")
+                for (i in position.first + 1 until system.getEquationsLength()) {
+                    val value = system.gleichungen[position.second].faktoren[i]
+                    if (value != 0.br) {
+                        //console.log(value)
+                        freieParameter.add(Pair(FreierParameter(i+1), system.gleichungen[position.second].faktoren[i]))
+                    }
+                }
+                val ergebnis = Wert(position.first + 1, system.gleichungen[position.second].ergebnis, freieParameter)
+                //console.log(ergebnis)
+                results.put(position.first,ergebnis)
+            }
+        }
+
+        val freierParameter: Map<Int, FreierParameter> = unbestimmt.associate { it to FreierParameter(it+1) }
+
+        val total:MutableMap<Int, Ergebnis> = mutableMapOf()
+        total.let {
+            it.putAll(results)
+            it.putAll(freierParameter)
+        }
+
+        console.log(total)
+
+        return total.toList().sortedBy(Pair<Int, Ergebnis>::first).toMap()
+    }
+
     private fun harvest(system: LinearEquationSystem, freieParameter: Int) {
         val results: MutableMap<Int, Bruch> = mutableMapOf()
 
@@ -70,24 +117,20 @@ class GausElminiationSolver : LinearEquationSolver {
             var result: Bruch = system.gleichungen[row].ergebnis
             val freeParams: MutableMap<Int, Bruch> = mutableMapOf()
             //replace the already known variables
-            for (fillIn in row+1 until system.getEquationsLength()) {
+            for (fillIn in row + 1 until system.getEquationsLength()) {
                 if (results.containsKey(fillIn)) {
                     result += system.gleichungen[row].faktoren[fillIn] * results[fillIn]!!
-                }
-                else
-                {
+                } else {
                     freeParams[fillIn] = system.gleichungen[row].faktoren[fillIn]
                 }
             }
             results[row] = result
 
-            println("x$row=$result+${formatMap(freeParams)}")
+            println("x${row + 1}=$result${formatMap(freeParams)}")
         }
     }
 
-    private fun formatMap(map: Map<Int, Bruch>): String
-    {
-        //return map.toList().stream().map { "${it.second}*x${it.first}" }.collect(Collectors.joining(","))
-        return map.map { "${it.value}*x${it.key}" }.joinToString(", ")
+    private fun formatMap(map: Map<Int, Bruch>): String {
+        return (if (map.isEmpty()) "" else " + ") + map.map { "${it.value}*x${it.key + 1}" }.joinToString(" + ")
     }
 }
