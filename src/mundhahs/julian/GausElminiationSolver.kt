@@ -22,10 +22,10 @@ class GausElminiationSolver : LinearEquationSolver {
                 //die gleichung mit dem faktor ungleich 0 wird mit einer anderen getauscht, so dass sie an der richtigen steht (=über der letzten sprungstelle)
                 if (notZeroRowIndex != sprungStellen) swap(system.gleichungen, notZeroRowIndex, sprungStellen)
 
-                system.gleichungen[sprungStellen] = system.gleichungen[sprungStellen] / system.gleichungen[sprungStellen].faktoren[spalte]
+                system[sprungStellen] = system[sprungStellen] / system[sprungStellen, spalte]
                 (0 until system.getEquationsAmount())
                         .filter { it != sprungStellen }
-                        .forEach { system.gleichungen[it] = system.gleichungen[it] - system.gleichungen[sprungStellen] * system.gleichungen[it].faktoren[spalte] }
+                        .forEach { system[it] = system[it] - system[sprungStellen] * system[it, spalte] }
                 sprungStellen++
                 //zero out below
             }
@@ -34,7 +34,7 @@ class GausElminiationSolver : LinearEquationSolver {
         //lösungsmenge!={leereMenge} prüfen
         var emptySolutionSet: Boolean = false
         for (i in sprungStellen until system.getEquationsAmount()) {
-            if (system.gleichungen[i].ergebnis.zähler == 0) {
+            if (system[i].ergebnis.zähler == 0) {
                 println("Die Lösungsmenge ist leer!")
                 emptySolutionSet = true
             }
@@ -85,13 +85,13 @@ class GausElminiationSolver : LinearEquationSolver {
                 //console.log("x${position.first+1} in row ${position.second} = ${system.gleichungen[position.second].faktoren[position.first]}")
                 //console.log("x${position.first + 1}")
                 for (i in position.first + 1 until system.getEquationsLength()) {
-                    val value = system.gleichungen[position.second].faktoren[i]
+                    val value = system[position.second, i]
                     if (value != 0.br) {
                         //console.log(value)
-                        freieParameter.add(Pair(FreierParameter(i+1), system.gleichungen[position.second].faktoren[i]))
+                        freieParameter.add(Pair(FreierParameter(i+1), system[position.second, i]))
                     }
                 }
-                val ergebnis = Wert(position.first + 1, system.gleichungen[position.second].ergebnis, freieParameter)
+                val ergebnis = Wert(position.first + 1, system[position.second].ergebnis, freieParameter)
                 //console.log(ergebnis)
                 results.put(position.first,ergebnis)
             }
@@ -114,14 +114,14 @@ class GausElminiationSolver : LinearEquationSolver {
         val results: MutableMap<Int, Bruch> = mutableMapOf()
 
         for (row in system.getEquationsAmount() - 1 downTo 0) {
-            var result: Bruch = system.gleichungen[row].ergebnis
+            var result: Bruch = system[row].ergebnis
             val freeParams: MutableMap<Int, Bruch> = mutableMapOf()
             //replace the already known variables
             for (fillIn in row + 1 until system.getEquationsLength()) {
                 if (results.containsKey(fillIn)) {
-                    result += system.gleichungen[row].faktoren[fillIn] * results[fillIn]!!
+                    result += system[row].faktoren[fillIn] * results[fillIn]!!
                 } else {
-                    freeParams[fillIn] = system.gleichungen[row].faktoren[fillIn]
+                    freeParams[fillIn] = system[row, fillIn]
                 }
             }
             results[row] = result
