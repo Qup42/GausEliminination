@@ -6,19 +6,17 @@ import kotlinx.html.dom.create
 import org.w3c.dom.HTMLInputElement
 import kotlin.browser.document
 
-var unknown: HTMLInputElement? = null
-var equations: HTMLInputElement? = null
 var numEquations = 4
 var numUnknowns = 4
 
 fun setupListeners() {
-    unknown = document.getElementById("numUnknows") as HTMLInputElement
-    equations = document.getElementById("numEquations") as HTMLInputElement
+    val unknown = document.getElementById("numUnknows") as HTMLInputElement
+    val equations = document.getElementById("numEquations") as HTMLInputElement
 
-    unknown!!.addEventListener("change", {
+    unknown.addEventListener("change", {
         console.log("change")
         val oldValue = numUnknowns
-        numUnknowns = unknown!!.value.toInt()
+        numUnknowns = unknown.value.toInt()
 
         when {
             numUnknowns == oldValue -> {
@@ -28,10 +26,10 @@ fun setupListeners() {
             numUnknowns < oldValue -> removeUnknown()
         }
     })
-    equations!!.addEventListener("change", {
+    equations.addEventListener("change", {
         console.log("change")
         val old = numEquations
-        numEquations = equations!!.value.toInt()
+        numEquations = equations.value.toInt()
 
         when {
             numEquations == old -> {
