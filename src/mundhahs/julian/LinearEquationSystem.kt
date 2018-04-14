@@ -4,11 +4,22 @@ package mundhahs.julian
  * Created by Julian Mundhahs on 18.10.2017.
  */
 
-class LinearEquationSystem(vararg gleichungen: Gleichung) {
-    var gleichungen: Array<Gleichung>
+class LinearEquationSystem() {
+    lateinit var gleichungen: Array<Gleichung>
 
-    init {
-        check(gleichungen.size != 0)
+    constructor(gleichungen: List<Gleichung>): this(gleichungen.toTypedArray())
+
+    constructor(gleichungen: Array<Gleichung>): this() {
+        check(gleichungen.isNotEmpty())
+
+        val equalLength = gleichungen.all { it.faktoren.size==gleichungen[0].faktoren.size }
+        check(equalLength, { "All Arrays must have the same length" } )
+
+        this.gleichungen = gleichungen
+    }
+
+    constructor(vararg gleichungen: Gleichung): this() {
+        check(gleichungen.isNotEmpty())
 
         val max: Int = gleichungen.maxBy { it.faktoren.size }!!.faktoren.size
 
