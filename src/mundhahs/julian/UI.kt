@@ -2,7 +2,11 @@ package mundhahs.julian
 
 import org.w3c.dom.HTMLInputElement
 import kotlin.browser.document
-
+import kotlinx.html.*
+import kotlinx.html.dom.*
+import org.w3c.dom.asList
+import kotlin.dom.addClass
+import kotlin.dom.removeClass
 
 var unknown: HTMLInputElement? = null
 var equations: HTMLInputElement? = null
@@ -14,49 +18,139 @@ fun setupListeners() {
     equations = document.getElementById("numEquations") as HTMLInputElement
 
     unknown!!.addEventListener("change", {
-        val newValue = unknown!!.value.toInt()
+        console.log("change")
+        val oldValue = numUnknowns
+        numUnknowns = unknown!!.value.toInt()
 
         when {
-            newValue == numUnknowns -> {
+            numUnknowns == oldValue -> {
 
             }
-            newValue > numUnknowns -> addUnknown()
-            newValue < numUnknowns -> removeUnknown()
+            numUnknowns > oldValue -> addUnknown()
+            numUnknowns < oldValue -> removeUnknown()
         }
     })
     equations!!.addEventListener("change", {
-        val newValue = equations!!.value.toInt()
+        console.log("change")
+        val old = numEquations
+        numEquations = equations!!.value.toInt()
 
         when {
-            newValue == numEquations -> {
+            numEquations == old -> {
 
             }
-            newValue > numEquations -> addEquation()
-            newValue < numEquations -> removeEquation()
+            numEquations > old -> addEquation()
+            numEquations < old -> removeEquation()
         }
     })
 }
 
 fun removeEquation() {
-    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    println(numEquations)
+    document.getElementById("row${numEquations + 1}")!!.remove()
 }
 
 fun addEquation() {
-    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    println(numEquations)
+    document.getElementById("table")!!.append {
+        tbody {
+            tr {
+                id = "row$numEquations"
+                th(scope = ThScope.row) { +numEquations.toString() }
+                for (j in 1..numUnknowns) {
+                    td(classes = "r$numEquations c$j") {
+                        input(type = InputType.number) { }
+                    }
+                }
+                td(classes = "r$numEquations c${numUnknowns + 1}") {
+                    input(type = InputType.number) { }
+                }
+            }
+        }
+    }
 }
 
 fun removeUnknown() {
-    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    for (i in 0..numEquations) {
+        document.getElementsByClassName("r$i c${numUnknowns + 1}").asList().forEach { element ->
+            run {
+                element.parentElement!!.removeChild(element)
+            }
+        }
+        document.getElementsByClassName("r$i c${numUnknowns + 2}").asList().forEach { element ->
+            run {
+                element.removeClass("c${numUnknowns + 2}")
+                element.addClass("c${numUnknowns + 1}")
+            }
+        }
+    }
 }
 
 fun addUnknown() {
-    TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    for (i in 1..numEquations) {
+        document.getElementsByClassName("r$i c$numUnknowns").asList().forEach { element ->
+            run {
+                element.removeClass("c$numUnknowns")
+                element.addClass("c${numUnknowns + 1}")
+            }
+        }
+
+        document.getElementsByClassName("r$i c${numUnknowns+1}").asList().forEach { element ->
+            run {
+                val newElement = document.createElement("td")
+                newElement.addClass("r$i c$numUnknowns")
+                val input =  document.create.input(type = InputType.number) { }
+                newElement.append(input)
+                element.parentNode!!.insertBefore(newElement, element)
+            }
+        }
+    }
+
+    //add header seperately
+    document.getElementsByClassName("r0 c$numUnknowns").asList().forEach { element ->
+        run {
+            element.removeClass("c$numUnknowns")
+            element.addClass("c${numUnknowns + 1}")
+        }
+    }
+    document.getElementsByClassName("r0 c${numUnknowns+1}").asList().forEach { element ->
+        run {
+            val newElement = document.createElement("th")
+            newElement.setAttribute("scope", "col")
+            newElement.addClass("r0 c$numUnknowns")
+            newElement.textContent = "x$numUnknowns"
+            element.parentNode!!.insertBefore(newElement, element)
+        }
+    }
 }
 
 fun setupTable() {
-    document.getElementById("table")!!.append.div {
-        span {
-            +"hello"
+    document.getElementById("table")!!.append {
+        thead {
+            tr {
+                id = "row0"
+                th(scope = ThScope.col) { +"Number" }
+                for (i in 1..numUnknowns) {
+                    th(scope = ThScope.col, classes = "r0 c$i") { +"x$i" }
+                }
+                th(scope = ThScope.col, classes = "r0 c${numUnknowns + 1}") { +"=" }
+            }
+        }
+        tbody {
+            for (i in 1..numEquations) {
+                tr {
+                    id = "row$i"
+                    th(scope = ThScope.row) { +i.toString() }
+                    for (j in 1..numUnknowns) {
+                        td(classes = "r$i c$j") {
+                            input(type = InputType.number) { }
+                        }
+                    }
+                    td(classes = "r$i c${numUnknowns + 1}") {
+                        input(type = InputType.number) { }
+                    }
+                }
+            }
         }
     }
 }
