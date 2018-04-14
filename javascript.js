@@ -1,37 +1,6 @@
-let numEquations = 4;
-let numUnknowns = 4;
-
-function setupTable() {
-    
-}
-
-function addUnknown() {
-
-}
-
-function removeUnknown() {
-
-}
-
-function addEqution() {
-
-}
-
-function removeEqution() {
-
-}
-
-
-$("#numUnknows").change(function (event) {
-
-});
-$("#numEquations").change(function (event) {
-
-});
-
 $("#calculate").click(function (event) {
-    alert("clicked");
+    GausEliminination.mundhahs.julian.calculate();
 });
-//console.log(GausEliminination.mundhahs.julian.main());
+
 $(document).ready(() => GausEliminination.mundhahs.julian.setupListeners());
 GausEliminination.mundhahs.julian.setupTable();
