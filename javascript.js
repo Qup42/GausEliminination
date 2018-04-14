@@ -34,3 +34,4 @@ $("#calculate").click(function (event) {
 });
 //console.log(GausEliminination.mundhahs.julian.main());
 $(document).ready(() => GausEliminination.mundhahs.julian.setupListeners());
+GausEliminination.mundhahs.julian.setupTable();

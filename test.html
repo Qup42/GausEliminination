@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Kotlin/JS Test</title>
     <script src="./out/production/GausEliminination/lib/kotlin.js"></script>
+    <script src="./out/production/GausEliminination/lib/kotlinx-html-js.js"></script>
     <script src="./out/production/GausEliminination/GausEliminination.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css">
     <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
@@ -23,60 +24,17 @@
             <th scope="col">Anzahl Gleichungen</th>
         </tr>
         <tr>
-            <td><input type="number" id="numUnknows"/></td>
-            <td><input type="number" id="numEquations"/></td>
+            <td><input type="number" id="numUnknows" value="4"/></td>
+            <td><input type="number" id="numEquations" value="4"/></td>
         </tr>
         </thead>
     </table>
 
 
     <h2>Equations:</h2>
-    <div id="table">
-        <table class="table">
-            <thead>
-            <tr>
-                <th scope="col">Number</th>
-                <th scope="col">x1</th>
-                <th scope="col">x2</th>
-                <th scope="col">x3</th>
-                <th scope="col">x4</th>
-                <th scope="col">=</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <th scope="row">I</th>
-                <td><input type="number" id="1#1"></td>
-                <td><input type="number" id="1#2"/></td>
-                <td><input type="number" id="1#3"></td>
-                <td><input type="number" id="1#4"/></td>
-                <td><input type="number" id="1#5"/></td>
-            </tr>
-            <tr>
-                <th scope="row">II</th>
-                <td><input type="number" id="2#1"></td>
-                <td><input type="number" id="2#2"/></td>
-                <td><input type="number" id="2#3"></td>
-                <td><input type="number" id="2#4"/></td>
-                <td><input type="number" id="2#5"/></td>
-            </tr>
-            <tr>
-                <th scope="row">II</th>
-                <td><input type="number" id="3#1"></td>
-                <td><input type="number" id="3#2"/></td>
-                <td><input type="number" id="3#3"></td>
-                <td><input type="number" id="3#4"/></td>
-                <td><input type="number" id="3#5"/></td>
-            </tr>
-            <tr>
-                <th scope="row">II</th>
-                <td><input type="number" id="4#1"></td>
-                <td><input type="number" id="4#2"/></td>
-                <td><input type="number" id="4#3"></td>
-                <td><input type="number" id="4#4"/></td>
-                <td><input type="number" id="4#5"/></td>
-            </tr>
-            </tbody>
+    <div id="table-div">
+        <table class="table" id="table">
+
         </table>
     </div>
 
