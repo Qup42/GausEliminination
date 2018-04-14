@@ -28,6 +28,22 @@ class LinearEquationSystem() {
         this.gleichungen = Array(gleichungen.size, { i -> this.gleichungen[i].fillTo(max)})
     }
 
+    operator fun get(i: Int): Gleichung {
+        return gleichungen[i]
+    }
+
+    operator fun get(i: Int, j: Int): Bruch {
+        return gleichungen[i].faktoren[j]
+    }
+
+    operator fun set(i: Int, b: Gleichung) {
+        gleichungen[i] = b
+    }
+
+    operator fun set(i: Int, j: Int, b: Bruch) {
+        gleichungen[i].faktoren[j] = b
+    }
+
     fun getEquationsAmount(): Int
     {
         return gleichungen.size
