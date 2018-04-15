@@ -14,7 +14,7 @@ fun setupListeners() {
     val unknown = document.getElementById("numUnknows") as HTMLInputElement
     val equations = document.getElementById("numEquations") as HTMLInputElement
 
-    unknown.addEventListener("change", {
+    unknown.addEventListener("input", {
         val difference = unknown.value.toInt() - numUnknowns
 
         when {
@@ -28,7 +28,7 @@ fun setupListeners() {
             })
         }
     })
-    equations.addEventListener("change", {
+    equations.addEventListener("input", {
         val difference = equations.value.toInt() - numEquations
 
         when {
