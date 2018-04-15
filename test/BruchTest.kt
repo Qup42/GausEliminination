@@ -60,7 +60,7 @@ class BruchTest: FunSpec() {
             /*
             Funktioniert nicht solange der Konstruktor nicht kürzt
             val minuesZweiViertel = -zweiViertel
-            minuesZweiViertel.zähler shouldBe -einsI
+            minuesZweiViertel.numerator shouldBe -einsI
             */
         }
 
