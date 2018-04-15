@@ -3,6 +3,8 @@ package mundhahs.julian
 import kotlinx.html.dom.append
 import kotlinx.html.js.hr
 import kotlinx.html.p
+import org.w3c.dom.events.Event
+import org.w3c.dom.events.EventTarget
 import kotlin.browser.document
 import kotlin.browser.window
 
@@ -50,3 +52,8 @@ val String.toBruch: Bruch
     get() {
         return Bruch(this.toInt(), 1)
     }
+
+//unused for now
+fun EventTarget.addEventListeners(types: String, callback: (Event) -> Unit, options: dynamic) {
+    types.split(" ").forEach { this.addEventListener(it, callback, options) }
+}
