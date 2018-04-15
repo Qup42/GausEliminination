@@ -7,7 +7,7 @@ import kotlin.browser.document
 import kotlin.browser.window
 
 fun main(args: Array<String>) {
-    calculateExampleSystem()
+    //calculateExampleSystem()
 }
 
 fun calculateExampleSystem() {
