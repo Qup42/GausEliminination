@@ -46,8 +46,6 @@ class GausElminiationSolver : LinearEquationSolver {
         println("Fertig")
         println("Stats:\nFreie Parameter: $freieParameter\nSprungstellen: $sprungStellen\nLösungsmenge ist leer: $emptySolutionSet\n")
 
-        harvest(system, freieParameter)
-
         return system
     }
 
@@ -105,29 +103,5 @@ class GausElminiationSolver : LinearEquationSolver {
         }
 
         return total.toList().sortedBy(Pair<Int, Ergebnis>::first).toMap()
-    }
-
-    private fun harvest(system: LinearEquationSystem, freieParameter: Int) {
-        val results: MutableMap<Int, Bruch> = mutableMapOf()
-
-        for (row in system.getEquationsAmount() - 1 downTo 0) {
-            var result: Bruch = system[row].ergebnis
-            val freeParams: MutableMap<Int, Bruch> = mutableMapOf()
-            //replace the already known variables
-            for (fillIn in row + 1 until system.getEquationsLength()) {
-                if (results.containsKey(fillIn)) {
-                    result += system[row].faktoren[fillIn] * results[fillIn]!!
-                } else {
-                    freeParams[fillIn] = system[row, fillIn]
-                }
-            }
-            results[row] = result
-
-            //println("x${row + 1}=$result${formatMap(freeParams)}")
-        }
-    }
-
-    private fun formatMap(map: Map<Int, Bruch>): String {
-        return (if (map.isEmpty()) "" else " + ") + map.map { "${it.value}*x${it.key + 1}" }.joinToString(" + ")
     }
 }
