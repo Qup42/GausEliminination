@@ -3,9 +3,7 @@ package mundhahs.julian
 class Gleichung(val ergebnis: Bruch, val faktoren: Array<Bruch>) {
 
     override fun toString(): String {
-        var toString: String = "["
-        faktoren.forEach { faktor -> toString += faktor }
-        return "$toString] = $ergebnis"
+        return "${faktoren.joinToString("",prefix = "[", postfix = "]")} = $ergebnis"
     }
 
     operator fun unaryMinus(): Gleichung = Gleichung(-ergebnis, Array<Bruch>(faktoren.size, {i -> -faktoren.get(i)}))
