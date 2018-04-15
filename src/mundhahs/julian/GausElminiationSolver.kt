@@ -53,7 +53,10 @@ class GausElminiationSolver : LinearEquationSolver {
     }
 
     private fun findNotZeroRow(system: LinearEquationSystem, spalte: Int, zeile: Int): Int {
-        return (zeile until system.getEquationsAmount()).indexOfFirst { system[it, spalte].zähler != 0 }
+        //we're cutting of the first zeile elements and only return the index of the match.
+        //zeile is therefore added back when returning to get the total and not the position relative to the start of the search
+        val index = (zeile until system.getEquationsAmount()).indexOfFirst { system[it, spalte].zähler != 0 }
+        return index+zeile
     }
 
     private fun checkApparentDeterminationOfEqautionSystem(gleichungen: Array<Gleichung>) {
