@@ -2,8 +2,9 @@ package mundhahs.julian
 
 class Gleichung(val ergebnis: Bruch, val faktoren: Array<Bruch>) {
 
-    override fun toString(): String {
-        return "${faktoren.joinToString("",prefix = "[", postfix = "]")} = $ergebnis"
+    fun fillTo(size: Int): Gleichung
+    {
+        return Gleichung(ergebnis, Array<Bruch>(size, {i -> faktoren.getOrElse(i, {0.br})}))
     }
 
     operator fun unaryMinus(): Gleichung = Gleichung(-ergebnis, Array<Bruch>(faktoren.size, {i -> -faktoren.get(i)}))
@@ -50,8 +51,8 @@ class Gleichung(val ergebnis: Bruch, val faktoren: Array<Bruch>) {
         return result
     }
 
-    fun fillTo(size: Int): Gleichung
+    override fun toString(): String
     {
-        return Gleichung(ergebnis, Array<Bruch>(size, {i -> faktoren.getOrElse(i, {0.br})}))
+        return "${faktoren.joinToString("",prefix = "[", postfix = "]")} = $ergebnis"
     }
 }
