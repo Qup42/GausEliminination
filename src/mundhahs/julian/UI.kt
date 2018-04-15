@@ -45,12 +45,10 @@ fun setupListeners() {
 }
 
 fun removeEquation() {
-    println(numEquations)
     document.getElementById("row${numEquations + 1}")!!.remove()
 }
 
 fun addEquation() {
-    println(numEquations)
     document.getElementById("tbody")!!.append {
         tr {
             id = "row$numEquations"
@@ -169,7 +167,6 @@ fun calculate() {
 
     val values = (solver as GausElminiationSolver).harvest1(solved)
 
-    values.forEach { console.log(it.value.getResult()) }
     val resultDiv = document.getElementById("result")
     values.forEach {
         resultDiv!!.append {

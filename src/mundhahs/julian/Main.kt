@@ -19,9 +19,7 @@ fun main(args: Array<String>) {
 
     val values = (solver as GausElminiationSolver).harvest1(solved)
 
-    console.log(values.keys.joinToString(", "))
     window.onload = {
-        values.forEach { console.log(it.value.getResult()) }
         val resultDiv = document.getElementById("result")
         values.forEach {
             resultDiv!!.append {

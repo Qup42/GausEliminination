@@ -79,25 +79,19 @@ class GausElminiationSolver : LinearEquationSolver {
         }
         val bestimmtIndex = bestimmt.map { it.first }
         val unbestimmt: List<Int> = (0 until system.getEquationsLength()).toList().subtract(bestimmtIndex).toList()
-//        console.log(unbestimmt)
-//        console.log(bestimmt)
 
         val results: MutableMap<Int, Wert> = mutableMapOf()
 
         bestimmt.reversed().forEach { position ->
             run {
                 val freieParameter: MutableList<Pair<FreierParameter, Bruch>> = mutableListOf()
-                //console.log("x${position.first+1} in row ${position.second} = ${system.gleichungen[position.second].faktoren[position.first]}")
-                //console.log("x${position.first + 1}")
                 for (i in position.first + 1 until system.getEquationsLength()) {
                     val value = system[position.second, i]
                     if (value != 0.br) {
-                        //console.log(value)
                         freieParameter.add(Pair(FreierParameter(i+1), system[position.second, i]))
                     }
                 }
                 val ergebnis = Wert(position.first + 1, system[position.second].ergebnis, freieParameter)
-                //console.log(ergebnis)
                 results.put(position.first,ergebnis)
             }
         }
@@ -109,8 +103,6 @@ class GausElminiationSolver : LinearEquationSolver {
             it.putAll(results)
             it.putAll(freierParameter)
         }
-
-        console.log(total)
 
         return total.toList().sortedBy(Pair<Int, Ergebnis>::first).toMap()
     }
@@ -131,7 +123,7 @@ class GausElminiationSolver : LinearEquationSolver {
             }
             results[row] = result
 
-            println("x${row + 1}=$result${formatMap(freeParams)}")
+            //println("x${row + 1}=$result${formatMap(freeParams)}")
         }
     }
 
