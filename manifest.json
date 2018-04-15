@@ -1,23 +1,23 @@
 {
   "short_name": "LGS-Löser",
   "name": "Löser für Lineare Gleichungssysteme",
-  /*"icons": [
+  "icons": [
     {
-      "src": "launcher-icon-1x.png",
+      "src": "matrix_48.png",
       "type": "image/png",
       "sizes": "48x48"
     },
     {
-      "src": "launcher-icon-2x.png",
+      "src": "matrix_96.png",
       "type": "image/png",
       "sizes": "96x96"
     },
     {
-      "src": "launcher-icon-4x.png",
+      "src": "matrix_192.png",
       "type": "image/png",
       "sizes": "192x192"
     }
-  ],*/
+  ],
   "start_url": "index.html",
   "display": "standalone"
 }
