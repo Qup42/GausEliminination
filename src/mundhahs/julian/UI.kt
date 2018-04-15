@@ -15,29 +15,31 @@ fun setupListeners() {
     val equations = document.getElementById("numEquations") as HTMLInputElement
 
     unknown.addEventListener("change", {
-        console.log("change")
-        val oldValue = numUnknowns
-        numUnknowns = unknown.value.toInt()
+        val difference = unknown.value.toInt() - numUnknowns
 
         when {
-            numUnknowns == oldValue -> {
-
-            }
-            numUnknowns > oldValue -> addUnknown()
-            numUnknowns < oldValue -> removeUnknown()
+            difference >= 0 -> repeat(difference, {
+                numUnknowns++
+                addUnknown()
+            })
+            difference < 0 -> repeat(-difference, {
+                numUnknowns--
+                removeUnknown()
+            })
         }
     })
     equations.addEventListener("change", {
-        console.log("change")
-        val old = numEquations
-        numEquations = equations.value.toInt()
+        val difference = equations.value.toInt() - numEquations
 
         when {
-            numEquations == old -> {
-
-            }
-            numEquations > old -> addEquation()
-            numEquations < old -> removeEquation()
+            difference >= 0 -> repeat(difference, {
+                numEquations++
+                addEquation()
+            })
+            difference < 0 -> repeat(-difference, {
+                numEquations--
+                removeEquation()
+            })
         }
     })
 }
