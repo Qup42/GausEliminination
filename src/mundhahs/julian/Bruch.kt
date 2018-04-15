@@ -34,6 +34,8 @@ data class Bruch(val zähler: Int, val nenner: Int) {
         }
     }
 
+    operator fun minus(bruch: Bruch) = (this + -bruch)
+
     operator fun times(bruch: Bruch): Bruch = kürzen(zähler * bruch.zähler, nenner * bruch.nenner)
 
     operator fun div(bruch: Bruch): Bruch = this * Bruch(bruch.nenner, bruch.zähler)
