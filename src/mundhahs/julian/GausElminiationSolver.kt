@@ -15,6 +15,9 @@ class GausElminiationSolver : LinearEquationSolver {
             //eigentlich sollten die spalten in diesem fall lieber getauscht werden
             val notZeroRowIndex: Int = findNotZeroRow(system, spalte, sprungStellen)
 
+            if(sprungStellen==system.getEquationsAmount())
+                break
+
             if (notZeroRowIndex == -1) {
                 freieParameter++
                 continue
