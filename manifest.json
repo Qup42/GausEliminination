@@ -3,22 +3,22 @@
   "name": "Löser für Lineare Gleichungssysteme",
   "icons": [
     {
-      "src": "matrix_48.png",
+      "src": "img/matrix_48.png",
       "type": "image/png",
       "sizes": "48x48"
     },
     {
-      "src": "matrix_96.png",
+      "src": "img/matrix_96.png",
       "type": "image/png",
       "sizes": "96x96"
     },
     {
-      "src": "matrix_144.png",
+      "src": "img/matrix_144.png",
       "type": "image/png",
       "sizes": "144x144"
     },
     {
-      "src": "matrix_192.png",
+      "src": "img/matrix_192.png",
       "type": "image/png",
       "sizes": "192x192"
     }
