@@ -111,7 +111,7 @@ fun setupTable() {
         thead {
             tr {
                 id = "row0"
-                th(scope = ThScope.col) { +"Number" }
+                th(scope = ThScope.col) { +"#" }
                 for (i in 1..numUnknowns) {
                     th(scope = ThScope.col) {
                         id = "r0 c$i"
