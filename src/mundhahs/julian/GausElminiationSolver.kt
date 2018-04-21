@@ -39,7 +39,6 @@ class GausElminiationSolver(system: LinearEquationSystem) : LinearEquationSolver
         val emptySolutionSet: Boolean = isSolutionSetEmpty()
         if(emptySolutionSet) {
             println("Die Lösungsmenge ist leer!")
-            throw EmptySolutionSetException("The solution set is empty!")
         }
 
         println("Fertig")
