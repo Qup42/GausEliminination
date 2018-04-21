@@ -28,7 +28,7 @@ fun calculateExampleSystem() {
 
     val solved = solver.solve()
 
-    val values = (solver as GausElminiationSolver).harvest1()
+    val values = (solver as GausElminiationSolver).orderedResult()
 
     window.onload = {
         val resultDiv = document.getElementById("result")

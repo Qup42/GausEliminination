@@ -165,7 +165,7 @@ fun calculate() {
 
     val solved = solver.solve()
 
-    val values = (solver as GausElminiationSolver).harvest1()
+    val values = (solver as GausElminiationSolver).orderedResult()
 
     val resultDiv = document.getElementById("result")
     values.forEach {

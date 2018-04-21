@@ -65,13 +65,7 @@ class GausElminiationSolver(system: LinearEquationSystem) : LinearEquationSolver
         }
     }
 
-
     override fun orderedResult(): Map<Int, Ergebnis> {
-        return harvest1()
-    }
-
-
-    fun harvest1(): Map<Int, Ergebnis> {
         val bestimmt: MutableList<Pair<Int, Int>> = mutableListOf()
         /*similar to unbestimmt indexes*/
         system.gleichungen.forEach { gleichung ->
