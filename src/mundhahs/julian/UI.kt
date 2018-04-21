@@ -161,11 +161,11 @@ fun calculate() {
 
     val lgs = LinearEquationSystem(equations)
 
-    val solver: LinearEquationSolver = GausElminiationSolver()
+    val solver: LinearEquationSolver = GausElminiationSolver(lgs)
 
-    val solved = solver.solve(lgs)
+    val solved = solver.solve()
 
-    val values = (solver as GausElminiationSolver).harvest1(solved)
+    val values = (solver as GausElminiationSolver).harvest1()
 
     val resultDiv = document.getElementById("result")
     values.forEach {

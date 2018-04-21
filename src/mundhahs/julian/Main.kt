@@ -24,11 +24,11 @@ fun calculateExampleSystem() {
     val d = Gleichung(5.br, arrayOf(0.br, 2.br))
     val lgs = LinearEquationSystem(a,b,c,d)*/
 
-    val solver: LinearEquationSolver = GausElminiationSolver()
+    val solver: LinearEquationSolver = GausElminiationSolver(lgs)
 
-    val solved = solver.solve(lgs)
+    val solved = solver.solve()
 
-    val values = (solver as GausElminiationSolver).harvest1(solved)
+    val values = (solver as GausElminiationSolver).harvest1()
 
     window.onload = {
         val resultDiv = document.getElementById("result")
