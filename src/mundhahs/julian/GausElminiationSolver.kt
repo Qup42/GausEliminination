@@ -3,17 +3,18 @@ package mundhahs.julian
 /**
  * Created by Julian Mundhahs on 18.11.2017.
  */
-class GausElminiationSolver : LinearEquationSolver {
-    override fun solve(system: LinearEquationSystem): LinearEquationSystem {
+class GausElminiationSolver(val system: LinearEquationSystem) : LinearEquationSolver {
+
+    var freieParameter = 0
+    var sprungStellen = 0
+
+    override fun solve(): LinearEquationSystem {
         //Unter der Annamhe, dass alle gleich lang sind
         checkApparentDeterminationOfEqautionSystem(system.gleichungen)
 
-        var sprungStellen = 0
-        var freieParameter = 0
-
         for (spalte in 0 until system.getEquationsLength()) {
             //eigentlich sollten die spalten in diesem fall lieber getauscht werden
-            val notZeroRowIndex: Int = findNotZeroRow(system, spalte, sprungStellen)
+            val notZeroRowIndex: Int = findNotZeroRow(spalte, sprungStellen)
 
             if(sprungStellen==system.getEquationsAmount())
                 break
@@ -35,7 +36,7 @@ class GausElminiationSolver : LinearEquationSolver {
         }
 
         //lösungsmenge!={leereMenge} prüfen
-        val emptySolutionSet: Boolean = isSolutionSetEmpty(system, sprungStellen)
+        val emptySolutionSet: Boolean = isSolutionSetEmpty()
         if(emptySolutionSet) {
             println("Die Lösungsmenge ist leer!")
             throw EmptySolutionSetException("The solution set is empty!")
@@ -51,7 +52,7 @@ class GausElminiationSolver : LinearEquationSolver {
         gleichungen[index1] = gleichungen[index2].also { gleichungen[index2] = gleichungen[index1] }
     }
 
-    private fun findNotZeroRow(system: LinearEquationSystem, spalte: Int, zeile: Int): Int {
+    private fun findNotZeroRow(spalte: Int, zeile: Int): Int {
         //we're cutting of the first zeile elements and only return the index of the match.
         //zeile is therefore added back when returning to get the total and not the position relative to the start of the search
         val index = (zeile until system.getEquationsAmount()).indexOfFirst { system[it, spalte].numerator != 0 }
@@ -64,7 +65,7 @@ class GausElminiationSolver : LinearEquationSolver {
         }
     }
 
-    fun harvest1(system: LinearEquationSystem): Map<Int, Ergebnis> {
+    fun harvest1(): Map<Int, Ergebnis> {
         val bestimmt: MutableList<Pair<Int, Int>> = mutableListOf()
         /*similar to unbestimmt indexes*/
         system.gleichungen.forEach { gleichung ->
@@ -103,8 +104,8 @@ class GausElminiationSolver : LinearEquationSolver {
         return total.toList().sortedBy(Pair<Int, Ergebnis>::first).toMap()
     }
 
-    fun isSolutionSetEmpty(system: LinearEquationSystem, sprungstellen: Int): Boolean
+    fun isSolutionSetEmpty(): Boolean
     {
-        return (sprungstellen until system.getEquationsAmount()).none { system[it].ergebnis.numerator!=0 }
+        return (sprungStellen until system.getEquationsAmount()).none { system[it].ergebnis.numerator!=0 }
     }
 }
