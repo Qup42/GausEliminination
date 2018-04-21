@@ -8,8 +8,6 @@ import mundhahs.julian.Material.Gleichung
 import mundhahs.julian.Material.LinearEquationSystem
 import mundhahs.julian.Service.GausElminiationSolver
 import mundhahs.julian.Service.LinearEquationSolver
-import org.w3c.dom.events.Event
-import org.w3c.dom.events.EventTarget
 import kotlin.browser.document
 import kotlin.browser.window
 
@@ -45,9 +43,4 @@ fun calculateExampleSystem() {
         }
         resultDiv!!.append { hr { } }
     }
-}
-
-//unused for now
-fun EventTarget.addEventListeners(types: String, callback: (Event) -> Unit, options: dynamic) {
-    types.split(" ").forEach { this.addEventListener(it, callback, options) }
 }
