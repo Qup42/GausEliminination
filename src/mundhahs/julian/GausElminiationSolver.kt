@@ -3,7 +3,7 @@ package mundhahs.julian
 /**
  * Created by Julian Mundhahs on 18.11.2017.
  */
-class GausElminiationSolver(val system: LinearEquationSystem) : LinearEquationSolver {
+class GausElminiationSolver(system: LinearEquationSystem) : LinearEquationSolver(system) {
 
     var freieParameter = 0
     var sprungStellen = 0
@@ -65,6 +65,12 @@ class GausElminiationSolver(val system: LinearEquationSystem) : LinearEquationSo
         }
     }
 
+
+    override fun orderedResult(): Map<Int, Ergebnis> {
+        return harvest1()
+    }
+
+
     fun harvest1(): Map<Int, Ergebnis> {
         val bestimmt: MutableList<Pair<Int, Int>> = mutableListOf()
         /*similar to unbestimmt indexes*/
@@ -104,7 +110,7 @@ class GausElminiationSolver(val system: LinearEquationSystem) : LinearEquationSo
         return total.toList().sortedBy(Pair<Int, Ergebnis>::first).toMap()
     }
 
-    fun isSolutionSetEmpty(): Boolean
+    override fun isSolutionSetEmpty(): Boolean
     {
         return (sprungStellen until system.getEquationsAmount()).none { system[it].ergebnis.numerator!=0 }
     }
