@@ -1,4 +1,4 @@
-package mundhahs.julian
+package mundhahs.julian.Material
 
 import mundhahs.julian.Fachwert.Bruch
 

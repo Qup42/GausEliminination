@@ -1,9 +1,8 @@
-package mundhahs.julian
+package mundhahs.julian.Service
 
 import mundhahs.julian.Fachwert.Bruch
 import mundhahs.julian.Fachwert.br
-import mundhahs.julian.Material.Gleichung
-import mundhahs.julian.Material.LinearEquationSystem
+import mundhahs.julian.Material.*
 
 /**
  * Created by Julian Mundhahs on 18.11.2017.

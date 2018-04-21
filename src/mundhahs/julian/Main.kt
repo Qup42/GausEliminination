@@ -3,10 +3,11 @@ package mundhahs.julian
 import kotlinx.html.dom.append
 import kotlinx.html.js.hr
 import kotlinx.html.p
-import mundhahs.julian.Fachwert.Bruch
 import mundhahs.julian.Fachwert.br
 import mundhahs.julian.Material.Gleichung
 import mundhahs.julian.Material.LinearEquationSystem
+import mundhahs.julian.Service.GausElminiationSolver
+import mundhahs.julian.Service.LinearEquationSolver
 import org.w3c.dom.events.Event
 import org.w3c.dom.events.EventTarget
 import kotlin.browser.document

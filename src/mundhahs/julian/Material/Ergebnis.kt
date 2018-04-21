@@ -1,4 +1,4 @@
-package mundhahs.julian
+package mundhahs.julian.Material
 
 abstract class Ergebnis(val index: Int) {
     fun getName(): String {

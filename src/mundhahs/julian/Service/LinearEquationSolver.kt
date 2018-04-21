@@ -1,5 +1,6 @@
-package mundhahs.julian
+package mundhahs.julian.Service
 
+import mundhahs.julian.Material.Ergebnis
 import mundhahs.julian.Material.LinearEquationSystem
 
 /**
