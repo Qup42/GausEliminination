@@ -1,5 +1,7 @@
 package mundhahs.julian
 
+import mundhahs.julian.Fachwert.Bruch
+
 class Wert(index: Int, val ergebnis: Bruch, val freieParameter: List<Pair<FreierParameter,Bruch>>): Ergebnis(index)
 {
     override fun getResult(): String {

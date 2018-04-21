@@ -1,4 +1,4 @@
-package mundhahs.julian
+package mundhahs.julian.Fachwert
 
 data class Bruch(val numerator: Int, val denominator: Int) {
     //TODO: Konstruktor kürzen lassen

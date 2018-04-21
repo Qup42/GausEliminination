@@ -1,5 +1,7 @@
 package mundhahs.julian
 
+import mundhahs.julian.Fachwert.Bruch
+
 class Gleichung(val ergebnis: Bruch, val faktoren: Array<Bruch>) {
 
     fun fillTo(size: Int): Gleichung

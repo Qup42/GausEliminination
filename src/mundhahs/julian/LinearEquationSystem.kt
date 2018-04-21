@@ -1,5 +1,7 @@
 package mundhahs.julian
 
+import mundhahs.julian.Fachwert.Bruch
+
 /**
  * Created by Julian Mundhahs on 18.10.2017.
  */
