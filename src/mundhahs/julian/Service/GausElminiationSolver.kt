@@ -1,6 +1,7 @@
 package mundhahs.julian
 
 import mundhahs.julian.Fachwert.Bruch
+import mundhahs.julian.Fachwert.br
 import mundhahs.julian.Material.Gleichung
 import mundhahs.julian.Material.LinearEquationSystem
 

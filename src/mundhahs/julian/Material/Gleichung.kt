@@ -1,7 +1,7 @@
 package mundhahs.julian.Material
 
 import mundhahs.julian.Fachwert.Bruch
-import mundhahs.julian.br
+import mundhahs.julian.Fachwert.br
 
 class Gleichung(val ergebnis: Bruch, val faktoren: Array<Bruch>) {
 

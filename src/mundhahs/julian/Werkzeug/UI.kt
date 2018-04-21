@@ -9,8 +9,8 @@ import mundhahs.julian.GausElminiationSolver
 import mundhahs.julian.LinearEquationSolver
 import mundhahs.julian.Material.Gleichung
 import mundhahs.julian.Material.LinearEquationSystem
-import mundhahs.julian.br
-import mundhahs.julian.toBruch
+import mundhahs.julian.Fachwert.br
+import mundhahs.julian.Fachwert.toBruch
 import org.w3c.dom.HTMLInputElement
 import kotlin.browser.document
 

@@ -59,3 +59,13 @@ data class Bruch(val numerator: Int, val denominator: Int) {
         return "($numerator/$denominator)"
     }
 }
+
+val Int.br: Bruch
+    get() {
+        return Bruch(this, 1)
+    }
+
+val String.toBruch: Bruch
+    get() {
+        return Bruch(this.toInt(), 1)
+    }

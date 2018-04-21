@@ -4,6 +4,7 @@ import kotlinx.html.dom.append
 import kotlinx.html.js.hr
 import kotlinx.html.p
 import mundhahs.julian.Fachwert.Bruch
+import mundhahs.julian.Fachwert.br
 import mundhahs.julian.Material.Gleichung
 import mundhahs.julian.Material.LinearEquationSystem
 import org.w3c.dom.events.Event
@@ -44,16 +45,6 @@ fun calculateExampleSystem() {
         resultDiv!!.append { hr { } }
     }
 }
-
-val Int.br: Bruch
-    get() {
-        return Bruch(this, 1)
-    }
-
-val String.toBruch: Bruch
-    get() {
-        return Bruch(this.toInt(), 1)
-    }
 
 //unused for now
 fun EventTarget.addEventListeners(types: String, callback: (Event) -> Unit, options: dynamic) {
