@@ -5,8 +5,8 @@ package mundhahs.julian
  */
 class GausElminiationSolver(system: LinearEquationSystem) : LinearEquationSolver(system) {
 
-    var freieParameter = 0
-    var sprungStellen = 0
+    private var freieParameter = 0
+    private var sprungStellen = 0
 
     override fun solve(): LinearEquationSystem {
         //Unter der Annamhe, dass alle gleich lang sind
