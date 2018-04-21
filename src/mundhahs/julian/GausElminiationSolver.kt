@@ -35,12 +35,10 @@ class GausElminiationSolver : LinearEquationSolver {
         }
 
         //lösungsmenge!={leereMenge} prüfen
-        var emptySolutionSet: Boolean = false
-        for (i in sprungStellen until system.getEquationsAmount()) {
-            if (system[i].ergebnis.numerator != 0) {
-                println("Die Lösungsmenge ist leer!")
-                emptySolutionSet = true
-            }
+        val emptySolutionSet: Boolean = isSolutionSetEmpty(system, sprungStellen)
+        if(emptySolutionSet) {
+            println("Die Lösungsmenge ist leer!")
+            throw EmptySolutionSetException("The solution set is empty!")
         }
 
         println("Fertig")
