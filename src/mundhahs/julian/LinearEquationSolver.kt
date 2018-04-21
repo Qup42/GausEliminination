@@ -5,6 +5,6 @@ package mundhahs.julian
  */
 interface LinearEquationSolver {
 
-    public fun solve(system: LinearEquationSystem): LinearEquationSystem
+    fun solve(): LinearEquationSystem
 
 }
