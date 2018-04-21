@@ -37,7 +37,7 @@ class GausElminiationSolver : LinearEquationSolver {
         //lösungsmenge!={leereMenge} prüfen
         var emptySolutionSet: Boolean = false
         for (i in sprungStellen until system.getEquationsAmount()) {
-            if (system[i].ergebnis.numerator == 0) {
+            if (system[i].ergebnis.numerator != 0) {
                 println("Die Lösungsmenge ist leer!")
                 emptySolutionSet = true
             }
