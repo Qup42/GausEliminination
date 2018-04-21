@@ -1,13 +1,13 @@
 $("#calculate").click(function () {
-    GausEliminination.mundhahs.julian.fillEmptyInputsWithZero();
-    GausEliminination.mundhahs.julian.calculate();
+    GausEliminination.mundhahs.julian.Werkzeug.fillEmptyInputsWithZero();
+    GausEliminination.mundhahs.julian.Werkzeug.calculate();
 });
 $("#clear_results").click(function () {
     $("#result").empty();
 });
 
-$(document).ready(() => GausEliminination.mundhahs.julian.setupListeners());
-GausEliminination.mundhahs.julian.setupTable();
+$(document).ready(() => GausEliminination.mundhahs.julian.Werkzeug.setupListeners());
+GausEliminination.mundhahs.julian.Werkzeug.setupTable();
 
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', function() {

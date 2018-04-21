@@ -1,12 +1,16 @@
-package mundhahs.julian
+package mundhahs.julian.Werkzeug
 
 import kotlinx.html.*
 import kotlinx.html.dom.append
 import kotlinx.html.dom.create
 import kotlinx.html.js.hr
 import mundhahs.julian.Fachwert.Bruch
+import mundhahs.julian.GausElminiationSolver
+import mundhahs.julian.LinearEquationSolver
 import mundhahs.julian.Material.Gleichung
 import mundhahs.julian.Material.LinearEquationSystem
+import mundhahs.julian.br
+import mundhahs.julian.toBruch
 import org.w3c.dom.HTMLInputElement
 import kotlin.browser.document
 
@@ -54,16 +58,16 @@ fun removeEquation() {
 fun addEquation() {
     document.getElementById("tbody")!!.append {
         tr {
-            id = "row$numEquations"
+            id = "row${numEquations}"
             th(scope = ThScope.row) { +numEquations.toString() }
             for (j in 1..numUnknowns) {
                 td {
-                    id = "r$numEquations c$j"
+                    id = "r${numEquations} c$j"
                     input(type = InputType.number) { }
                 }
             }
             td {
-                id = "r$numEquations c${numUnknowns + 1}"
+                id = "r${numEquations} c${numUnknowns + 1}"
                 input(type = InputType.number) { }
             }
         }
@@ -82,13 +86,13 @@ fun removeUnknown() {
 
 fun addUnknown() {
     for (i in 1..numEquations) {
-        document.getElementById("r$i c$numUnknowns").let {
+        document.getElementById("r$i c${numUnknowns}").let {
             it!!.id = "r$i c${numUnknowns + 1}"
         }
 
         document.getElementById("r$i c${numUnknowns + 1}").let {
             val newElement = document.createElement("td")
-            newElement.id = "r$i c$numUnknowns"
+            newElement.id = "r$i c${numUnknowns}"
             val input = document.create.input(type = InputType.number) { }
             newElement.append(input)
             it!!.parentNode!!.insertBefore(newElement, it)
@@ -96,15 +100,15 @@ fun addUnknown() {
     }
 
     //add header seperately
-    document.getElementById("r0 c$numUnknowns").let {
+    document.getElementById("r0 c${numUnknowns}").let {
         it!!.id = "r0 c${numUnknowns + 1}"
     }
 
     document.getElementById("r0 c${numUnknowns + 1}").let {
         val newElement = document.createElement("th")
         newElement.setAttribute("scope", "col")
-        newElement.id = "r0 c$numUnknowns"
-        newElement.textContent = "x$numUnknowns"
+        newElement.id = "r0 c${numUnknowns}"
+        newElement.textContent = "x${numUnknowns}"
         it!!.parentNode!!.insertBefore(newElement, it)
     }
 }
