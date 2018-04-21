@@ -1,5 +1,7 @@
 package mundhahs.julian
 
+import mundhahs.julian.Material.LinearEquationSystem
+
 /**
  * Created by Julian Mundhahs on 18.11.2017.
  */

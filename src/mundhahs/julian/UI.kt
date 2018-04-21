@@ -5,6 +5,8 @@ import kotlinx.html.dom.append
 import kotlinx.html.dom.create
 import kotlinx.html.js.hr
 import mundhahs.julian.Fachwert.Bruch
+import mundhahs.julian.Material.Gleichung
+import mundhahs.julian.Material.LinearEquationSystem
 import org.w3c.dom.HTMLInputElement
 import kotlin.browser.document
 

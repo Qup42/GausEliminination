@@ -1,21 +1,22 @@
-package mundhahs.julian
+package mundhahs.julian.Material
 
 import mundhahs.julian.Fachwert.Bruch
+import mundhahs.julian.br
 
 class Gleichung(val ergebnis: Bruch, val faktoren: Array<Bruch>) {
 
     fun fillTo(size: Int): Gleichung
     {
-        return Gleichung(ergebnis, Array<Bruch>(size, {i -> faktoren.getOrElse(i, {0.br})}))
+        return Gleichung(ergebnis, Array<Bruch>(size, { i -> faktoren.getOrElse(i, { 0.br }) }))
     }
 
-    operator fun unaryMinus(): Gleichung = Gleichung(-ergebnis, Array<Bruch>(faktoren.size, {i -> -faktoren.get(i)}))
+    operator fun unaryMinus(): Gleichung = Gleichung(-ergebnis, Array<Bruch>(faktoren.size, { i -> -faktoren.get(i) }))
 
     operator fun plus(gleichung: Gleichung): Gleichung
     {
         val neueFaktoren: Array<Bruch> = Array<Bruch>(maxOf(faktoren.size, gleichung.faktoren.size),{i -> (faktoren.getOrElse(i, {0.br}))+gleichung.faktoren.getOrElse(i, {0.br})})
 
-        return Gleichung(ergebnis+gleichung.ergebnis, neueFaktoren)
+        return Gleichung(ergebnis + gleichung.ergebnis, neueFaktoren)
     }
 
     operator fun minus(gleichung: Gleichung): Gleichung
@@ -25,12 +26,12 @@ class Gleichung(val ergebnis: Bruch, val faktoren: Array<Bruch>) {
 
     operator fun times(faktor: Bruch): Gleichung
     {
-        return Gleichung(ergebnis*faktor, Array<Bruch>(faktoren.size, {i -> (faktoren[i]*faktor)}))
+        return Gleichung(ergebnis * faktor, Array<Bruch>(faktoren.size, { i -> (faktoren[i] * faktor) }))
     }
 
     operator fun div(bruch: Bruch): Gleichung
     {
-        return Gleichung(ergebnis/bruch, Array<Bruch>(faktoren.size, {i -> (faktoren[i]/bruch)}))
+        return Gleichung(ergebnis / bruch, Array<Bruch>(faktoren.size, { i -> (faktoren[i] / bruch) }))
     }
 
     operator fun contains(bruch: Bruch) = faktoren.contains(bruch)
