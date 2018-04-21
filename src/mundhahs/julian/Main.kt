@@ -25,8 +25,7 @@ fun calculateExampleSystem() {
     val lgs = LinearEquationSystem(a,b,c,d)*/
 
     val solver: LinearEquationSolver = GausElminiationSolver(lgs)
-
-    val solved = solver.solve()
+    solver.solve()
 
     val values = (solver as GausElminiationSolver).orderedResult()
 

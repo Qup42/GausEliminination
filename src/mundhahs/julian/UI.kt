@@ -162,8 +162,7 @@ fun calculate() {
     val lgs = LinearEquationSystem(equations)
 
     val solver: LinearEquationSolver = GausElminiationSolver(lgs)
-
-    val solved = solver.solve()
+    solver.solve()
 
     val values = (solver as GausElminiationSolver).orderedResult()
 
