@@ -104,4 +104,9 @@ class GausElminiationSolver : LinearEquationSolver {
 
         return total.toList().sortedBy(Pair<Int, Ergebnis>::first).toMap()
     }
+
+    fun isSolutionSetEmpty(system: LinearEquationSystem, sprungstellen: Int): Boolean
+    {
+        return (sprungstellen until system.getEquationsAmount()).none { system[it].ergebnis.numerator!=0 }
+    }
 }
