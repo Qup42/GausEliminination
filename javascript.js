@@ -34,6 +34,9 @@ $("#clear_coefficients").click(function () {
         this.value = 0
     });
 });
+$("#versionTag").click(function () {
+    navigator.serviceWorker.controller.postMessage({command: "clearCache"});
+});
 
 $(document).ready(() => GausEliminination.mundhahs.julian.Werkzeug.setupListeners());
 GausEliminination.mundhahs.julian.Werkzeug.setupTable();
