@@ -59,7 +59,7 @@ class GausElminiationSolver(system: LinearEquationSystem) : LinearEquationSolver
         //we're cutting of the first zeile elements and only return the index of the match.
         //zeile is therefore added back when returning to get the total and not the position relative to the start of the search
         val index = (zeile until system.getEquationsAmount()).indexOfFirst { system[it, spalte].numerator != 0 }
-        return index+zeile
+        return if(index!=-1) index+zeile else index
     }
 
     private fun checkApparentDeterminationOfEqautionSystem(gleichungen: Array<Gleichung>) {
