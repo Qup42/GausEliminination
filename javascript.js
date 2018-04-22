@@ -40,9 +40,17 @@ GausEliminination.mundhahs.julian.Werkzeug.setupTable();
 
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', function() {
+        navigator.serviceWorker.addEventListener("message", function (event) {
+            switch (event.data.command) {
+                case "getVersion": $("#versionTag").text(event.data.value);
+                    break;
+            }
+        });
+
         navigator.serviceWorker.register('./serviceWorker.js').then(function(registration) {
             // Registration was successful
             console.log('ServiceWorker registration successful with scope: ', registration.scope);
+            navigator.serviceWorker.controller.postMessage({command: "getVersion"});
         }, function(err) {
             // registration failed :(
             alert(`ServiceWorker registration failed: ${err}`);
