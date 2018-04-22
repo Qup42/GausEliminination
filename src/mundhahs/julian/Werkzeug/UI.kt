@@ -206,11 +206,19 @@ fun displayResultOfSolver(solver: LinearEquationSolver) {
     val values = (solver as GausElminiationSolver).orderedResult()
 
     document.getElementById("result")!!.prepend {
-        div(classes = "alert alert-success") {
+        div(classes = "alert alert-success alert-dismissible fade show") {
             role = "alert"
             values.forEach {
                 p {
                     +it.value.getResult()
+                }
+            }
+            button(type = ButtonType.button, classes = "close") {
+                attributes["data-dismiss"] = "alert"
+                attributes["aria-label"] = "Close"
+                span {
+                    attributes["aria-hidden"] = "true"
+                    unsafe { +"&times;" }
                 }
             }
         }
