@@ -223,7 +223,6 @@ fun displayResultOfSolver(solver: LinearEquationSolver) {
             }
         }
     }
-    document.getElementById("result")!!.prepend { hr { } }
 }
 
 @Suppress("unused")
