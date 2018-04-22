@@ -95,5 +95,6 @@ self.addEventListener("message", function(event) {
             caches.open(PRECACHE)
                 .then(cache => cache.addAll(PRECACHE_URLS))
                 .then(_ => event.source.postMessage({command: "reload"}));
+            break;
     }
 });
