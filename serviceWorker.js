@@ -84,5 +84,16 @@ self.addEventListener("message", function(event) {
     switch(event.data.command) {
         case "getVersion": event.source.postMessage({command: event.data.command, value: version});
         break;
+        case "clearCache":
+            event.waitUntil(
+                caches.keys().then(cachesToDelete => {
+                    return Promise.all(cachesToDelete.map(cacheToDelete => {
+                        return caches.delete(cacheToDelete);
+                    }));
+                }).then(() => self.clients.claim())
+            );
+            caches.open(PRECACHE)
+                .then(cache => cache.addAll(PRECACHE_URLS))
+                .then(_ => event.source.postMessage({command: "reload"}));
     }
 });
