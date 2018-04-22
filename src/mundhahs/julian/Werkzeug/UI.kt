@@ -197,15 +197,17 @@ fun displaySolutionSetEmptyMessage() {
 fun displayResultOfSolver(solver: LinearEquationSolver) {
     val values = (solver as GausElminiationSolver).orderedResult()
 
-    val resultDiv = document.getElementById("result")
-    values.forEach {
-        resultDiv!!.prepend {
-            p {
-                +it.value.getResult()
+    document.getElementById("result")!!.prepend {
+        div(classes = "alert alert-success") {
+            role = "alert"
+            values.forEach {
+                p {
+                    +it.value.getResult()
+                }
             }
         }
     }
-    resultDiv!!.prepend { hr { } }
+    document.getElementById("result")!!.prepend { hr { } }
 }
 
 @Suppress("unused")
