@@ -109,6 +109,6 @@ class GausElminiationSolver(system: LinearEquationSystem) : LinearEquationSolver
 
     override fun isSolutionSetEmpty(): Boolean
     {
-        return (sprungStellen until system.getEquationsAmount()).none { system[it].ergebnis.numerator!=0 }
+        return (sprungStellen until system.getEquationsAmount()).any { system[it].ergebnis.numerator!=0 }
     }
 }
