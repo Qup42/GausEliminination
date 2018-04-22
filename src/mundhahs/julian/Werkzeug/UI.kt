@@ -11,6 +11,7 @@ import mundhahs.julian.Material.Gleichung
 import mundhahs.julian.Material.LinearEquationSystem
 import mundhahs.julian.Fachwert.br
 import mundhahs.julian.Fachwert.toBruch
+import mundhahs.julian.prepend
 import org.w3c.dom.HTMLInputElement
 import kotlin.browser.document
 
@@ -178,13 +179,13 @@ fun calculate() {
 
     val resultDiv = document.getElementById("result")
     values.forEach {
-        resultDiv!!.append {
+        resultDiv!!.prepend {
             p {
                 +it.value.getResult()
             }
         }
     }
-    resultDiv!!.append { hr { } }
+    resultDiv!!.prepend { hr { } }
 }
 
 @Suppress("unused")
