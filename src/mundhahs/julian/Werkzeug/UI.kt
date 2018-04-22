@@ -185,10 +185,18 @@ fun calculate() {
 
 fun displaySolutionSetEmptyMessage() {
     document.getElementById("result")!!.prepend {
-        div(classes = "alert alert-danger") {
+        div(classes = "alert alert-danger alert-dismissible fade show") {
             role = "alert"
             p {
                 +"The Solution set is empty!"
+            }
+            button(type = ButtonType.button, classes = "close") {
+                attributes["data-dismiss"] = "alert"
+                attributes["aria-label"] = "Close"
+                span {
+                    attributes["aria-hidden"] = "true"
+                    unsafe { +"&times;" }
+                }
             }
         }
     }
