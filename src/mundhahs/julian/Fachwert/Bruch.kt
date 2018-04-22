@@ -1,7 +1,13 @@
 package mundhahs.julian.Fachwert
 
-data class Bruch(val numerator: Int, val denominator: Int) {
-    //TODO: Konstruktor kürzen lassen
+class Bruch(numeratorArg: Int, denominatorArg: Int) {
+    val numerator: Int
+    val denominator: Int
+
+    init {
+        numerator = numeratorArg / gcd(numeratorArg, denominatorArg)
+        denominator = denominatorArg / gcd(numeratorArg, denominatorArg)
+    }
 
     private fun gcd(int1: Int, int2: Int): Int {
         var a = int1
