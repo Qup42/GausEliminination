@@ -175,6 +175,26 @@ fun calculate() {
     val solver: LinearEquationSolver = GausElminiationSolver(lgs)
     solver.solve()
 
+    when(solver.isSolutionSetEmpty()) {
+        false -> displayResultOfSolver(solver)
+        true -> displaySolutionSetEmptyMessage()
+    }
+
+
+}
+
+fun displaySolutionSetEmptyMessage() {
+    document.getElementById("result")!!.prepend {
+        div(classes = "alert alert-danger") {
+            role = "alert"
+            p {
+                +"The Solution set is empty!"
+            }
+        }
+    }
+}
+
+fun displayResultOfSolver(solver: LinearEquationSolver) {
     val values = (solver as GausElminiationSolver).orderedResult()
 
     val resultDiv = document.getElementById("result")
