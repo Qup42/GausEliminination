@@ -38,7 +38,7 @@ $("#clear_coefficients").click(function () {
 $(document).ready(() => GausEliminination.mundhahs.julian.Werkzeug.setupListeners());
 GausEliminination.mundhahs.julian.Werkzeug.setupTable();
 
-/*if ('serviceWorker' in navigator) {
+if ('serviceWorker' in navigator) {
     window.addEventListener('load', function() {
         navigator.serviceWorker.register('./serviceWorker.js').then(function(registration) {
             // Registration was successful
@@ -48,7 +48,7 @@ GausEliminination.mundhahs.julian.Werkzeug.setupTable();
             alert('ServiceWorker registration failed: ', err);
         });
     });
-}*/
+}
 
 window.addEventListener('beforeinstallprompt', function(e) {
     console.log('beforeinstallprompt Event fired');
