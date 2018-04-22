@@ -29,6 +29,11 @@ $("#calculate").click(function () {
 $("#clear_results").click(function () {
     $("#result").empty();
 });
+$("#clear_coefficients").click(function () {
+    $("td[id] > input").each(function (index) {
+        this.value = 0
+    });
+});
 
 $(document).ready(() => GausEliminination.mundhahs.julian.Werkzeug.setupListeners());
 GausEliminination.mundhahs.julian.Werkzeug.setupTable();
