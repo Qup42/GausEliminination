@@ -47,6 +47,9 @@ if ('serviceWorker' in navigator) {
             switch (event.data.command) {
                 case "getVersion": $("#versionTag").text(event.data.value);
                     break;
+                case "reload":
+                    location.reload();
+                    break;
             }
         });
 
