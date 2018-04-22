@@ -10,7 +10,7 @@ class Gleichung(val ergebnis: Bruch, val faktoren: Array<Bruch>) {
         return Gleichung(ergebnis, Array(size, { i -> faktoren.getOrElse(i, { 0.br }) }))
     }
 
-    operator fun unaryMinus(): Gleichung = Gleichung(-ergebnis, Array(faktoren.size, { i -> -faktoren.get(i) }))
+    operator fun unaryMinus(): Gleichung = Gleichung(-ergebnis, Array(faktoren.size, { i -> -faktoren[i] }))
 
     operator fun plus(gleichung: Gleichung): Gleichung
     {
