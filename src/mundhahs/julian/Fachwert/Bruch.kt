@@ -1,5 +1,8 @@
 package mundhahs.julian.Fachwert
 
+import kotlin.math.absoluteValue
+import kotlin.math.sign
+
 class Bruch(numeratorArg: Int, denominatorArg: Int) {
     val numerator: Int
     val denominator: Int
@@ -62,7 +65,20 @@ class Bruch(numeratorArg: Int, denominatorArg: Int) {
     }
 
     override fun toString(): String {
-        return "($numerator/$denominator)"
+        return when {
+            numerator==0 -> "0"
+            denominator==1 -> "$numerator"
+            else -> "${signString(numerator, denominator)}(${numerator.absoluteValue}/${denominator.absoluteValue})"
+        }
+    }
+
+    private fun signString(numerator: Int, denominator: Int): String {
+        return when(numerator.sign * denominator.sign) {
+            -1 -> "-"
+            +1 -> ""
+            0 -> ""
+            else -> throw ArithmeticException("This state shouldn't be possible")
+        }
     }
 }
 
